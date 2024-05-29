@@ -4,6 +4,7 @@ import com.otters.admissionsbackend.model.Room;
 import com.otters.admissionsbackend.repository.RoomRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -27,7 +28,8 @@ public class RoomService {
         return repository.save(room);
     }
 
-    public void deleteRoomById(String id) {
+    public void deleteRoomById(
+            @PathVariable String id) {
         repository.deleteById(id);
     }
 
