@@ -27,4 +27,20 @@ public class ClassController {
     public List<MajorClass> getAll(@RequestParam(defaultValue = "") String name) {
         return classService.findAll(name);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MajorClass> getClassById(@PathVariable String id) {
+        return ResponseEntity.ok(classService.findById(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteClassById(@PathVariable String id) {
+        classService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MajorClass> updateClass(@PathVariable String id, @RequestBody MajorClass majorClass) {
+        return ResponseEntity.ok(classService.update(id, majorClass));
+    }
 }
