@@ -1,12 +1,12 @@
 package com.otters.admissionsbackend.controller;
 
+import com.otters.admissionsbackend.model.BenchMark;
 import com.otters.admissionsbackend.model.request.BenchMarkRequest;
 import com.otters.admissionsbackend.service.BenchMarkService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/bench_mark")
@@ -22,5 +22,26 @@ public class BenchMarkController {
             @RequestBody BenchMarkRequest request
             ) {
         return ResponseEntity.ok(service.add(request));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<BenchMark>> getAllBenchMarks() {
+        return ResponseEntity.ok(service.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BenchMark> getBenchMarkById(@PathVariable String id) {
+        return ResponseEntity.ok(service.findById(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBenchMarkById(@PathVariable String id) {
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<BenchMark> updateBenchMark(@PathVariable String id, @RequestBody BenchMarkRequest request) {
+        return ResponseEntity.ok(service.update(id, request));
     }
 }

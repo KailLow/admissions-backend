@@ -31,4 +31,23 @@ public class ExamService {
     public List<Exam> findAll(String name) {
         return repository.findAll();
     }
+
+    public Exam findById(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Exam not found"));
+    }
+
+    public void deleteById(String id) {
+        if (!repository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Exam not found");
+        }
+        repository.deleteById(id);
+    }
+
+    public Exam update(String id, Exam updatedExam) {
+        Exam existingExam = findById(id);
+        existingExam.setName(updatedExam.getName());
+        existingExam.setYear(updatedExam.getYear());
+        return repository.save(existingExam);
+    }
 }

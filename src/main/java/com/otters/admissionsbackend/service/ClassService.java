@@ -32,4 +32,24 @@ public class ClassService {
     public List<MajorClass> findAll(String name) {
         return repository.findAll();
     }
+
+    public MajorClass findById(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Major Class not found"));
+    }
+
+    public MajorClass update(String id, MajorClass majorClass) {
+        MajorClass existingClass = findById(id);
+        existingClass.setName(majorClass.getName());
+        existingClass.setYear(majorClass.getYear());
+        existingClass.setQuotas(majorClass.getQuotas());
+        return repository.save(existingClass);
+    }
+
+    public void deleteById(String id) {
+        if (!repository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Major Class not found");
+        }
+        repository.deleteById(id);
+    }
 }

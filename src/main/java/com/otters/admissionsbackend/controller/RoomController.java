@@ -34,4 +34,14 @@ public class RoomController {
         List<Room> rooms = service.getAllRooms();
         return ResponseEntity.ok(rooms);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Room> updateRoom(@PathVariable String id, @RequestBody Room room) {
+        return ResponseEntity.ok(service.update(id, room));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Room> getRoomById(@PathVariable String id) {
+        return ResponseEntity.ok(service.findById(id));
+    }
 }

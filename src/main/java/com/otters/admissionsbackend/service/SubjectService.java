@@ -50,4 +50,15 @@ public class SubjectService {
         repository.deleteById(id);
         return repository.save(subject);
     }
+    public Subject findById(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Subject not found"));
+    }
+
+    public void deleteById(String id) {
+        if (!repository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Subject not found");
+        }
+        repository.deleteById(id);
+    }
 }

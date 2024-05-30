@@ -41,4 +41,15 @@ public class SubjectController {
     public Subject edit(@RequestBody Subject subject, @PathVariable String id) {
         return subjectService.update(subject, id);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Subject> getSubjectById(@PathVariable String id) {
+        return ResponseEntity.ok(subjectService.findById(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSubjectById(@PathVariable String id) {
+        subjectService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

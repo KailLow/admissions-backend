@@ -36,4 +36,16 @@ public class RoomService {
     public List<Room> getAllRooms() {
         return repository.findAll();
     }
+
+    public Room findById(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Room not found"));
+    }
+
+    public Room update(String id, Room room) {
+        Room existingRoom = findById(id);
+        existingRoom.setName(room.getName());
+        existingRoom.setMaxContain(room.getMaxContain());
+        return repository.save(existingRoom);
+    }
 }
