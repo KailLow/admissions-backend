@@ -35,4 +35,8 @@ public class ProfileService {
     public Profile findByEmail(String email) throws Exception {
         return repository.findByEmail(email).get();
     }
+
+    public Profile findById(String id) throws Exception {
+        return repository.findById(id).get();
+    }
 }

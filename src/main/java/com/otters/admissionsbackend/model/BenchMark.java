@@ -13,13 +13,13 @@ public class BenchMark {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private Double score;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "class_id")
     private MajorClass majorClass;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "subject_id")
     private Subject subject;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "exam_id")
     private Exam exam;
 }

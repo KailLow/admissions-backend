@@ -18,11 +18,11 @@ public class Paper {
     private Double score;
     private Integer numberOfPapers;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
 }

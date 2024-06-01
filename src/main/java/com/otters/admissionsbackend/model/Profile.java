@@ -18,7 +18,9 @@ public class Profile implements Prototype {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    private String numberId;
     private String fullName;
+    private String gender;
     private Date dateOfBirth;
     private String phoneNumber;
     private String email;
@@ -26,6 +28,7 @@ public class Profile implements Prototype {
     private String ethnicType;
     private String houseHold;
     private String address;
+    private String school;
 
     public void setEmail(String email) {
         this.email = email;
@@ -67,14 +70,17 @@ public class Profile implements Prototype {
     public Prototype clone() {
         return new Profile(
                 this.id,
+                this.numberId,
                 this.fullName,
+                this.gender,
                 this.dateOfBirth,
                 this.phoneNumber,
                 this.email,
                 this.placeOfBirth,
                 this.ethnicType,
                 this.houseHold,
-                this.placeOfBirth
+                this.placeOfBirth,
+                this.school
         );
     }
 }

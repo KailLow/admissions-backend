@@ -1,6 +1,7 @@
 package com.otters.admissionsbackend.service;
 
 import com.otters.admissionsbackend.model.*;
+import com.otters.admissionsbackend.exceptionHandler.Error;
 import com.otters.admissionsbackend.model.request.BenchMarkRequest;
 import com.otters.admissionsbackend.repository.BenchMarkRepository;
 import com.otters.admissionsbackend.repository.ClassRepository;
@@ -29,8 +30,17 @@ public class BenchMarkService {
 
     public BenchMark add(BenchMarkRequest request){
         Optional<Exam> examOptional = examRepository.findById(request.getExamId());
+        if(examOptional.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, new Error("Exam not existed").toString());
+        }
         Optional<Subject> subjectOptional = subjectRepository.findById(request.getSubjectId());
+        if(subjectOptional.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, new Error("Subject not existed").toString());
+        }
         Optional<MajorClass> classOptional = classRepository.findById(request.getMajorClassId());
+        if(classOptional.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, new Error("Class not existed").toString());
+        }
         BenchMark benchMark = new BenchMark();
         benchMark.setExam(examOptional.get());
         benchMark.setSubject(subjectOptional.get());

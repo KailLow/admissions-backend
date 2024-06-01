@@ -18,7 +18,7 @@ public class PaperContainers {
     private String id;
 
     private Integer numberOfPapers;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
