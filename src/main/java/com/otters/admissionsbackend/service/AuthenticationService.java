@@ -1,8 +1,8 @@
 package com.otters.admissionsbackend.service;
 
-import com.otters.admissionsbackend.model.AuthenticationResponse;
-import com.otters.admissionsbackend.model.Token;
-import com.otters.admissionsbackend.model.User;
+import com.otters.admissionsbackend.model.*;
+import com.otters.admissionsbackend.repository.ProfileRepository;
+import com.otters.admissionsbackend.repository.StudentRepository;
 import com.otters.admissionsbackend.repository.TokenRepository;
 import com.otters.admissionsbackend.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,16 +25,21 @@ public class AuthenticationService {
     private final TokenRepository tokenRepository;
     private final AuthenticationManager authenticationManager;
 
+    private final ProfileRepository profileRepository;
+    private final StudentRepository studentRepository;
+
     public AuthenticationService(UserRepository repository,
                                  PasswordEncoder passwordEncoder,
                                  JwtService jwtService,
                                  TokenRepository tokenRepository,
-                                 AuthenticationManager authenticationManager) {
+                                 AuthenticationManager authenticationManager, ProfileRepository profileRepository, StudentRepository studentRepository) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.tokenRepository = tokenRepository;
         this.authenticationManager = authenticationManager;
+        this.profileRepository = profileRepository;
+        this.studentRepository = studentRepository;
     }
 
     public AuthenticationResponse register(User request) {
@@ -55,7 +60,35 @@ public class AuthenticationService {
 
         saveUserToken(accessToken, refreshToken, user);
 
-        return new AuthenticationResponse(accessToken, refreshToken,"User registration was successful");
+        return new AuthenticationResponse(accessToken, refreshToken,user.getRole() + " registration was successful");
+    }
+
+    public AuthenticationResponse studentRegister(Profile request) {
+        if (repository.findByUsername(request.getEmail()).isPresent()) {
+            return new AuthenticationResponse(null, null,"User already exist");
+        }
+        User user = new User();
+        user.setUsername(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getNumberId()));
+        user.setRole(Role.STUDENT);
+
+        Profile profile = (Profile) request.clone();
+        profileRepository.save(profile);
+
+        user = repository.save(user);
+
+        Student student = new Student();
+        student.setProfile(profile);
+        student.setPassed(null);
+        student.setUser(user);
+        studentRepository.save(student);
+
+        String accessToken = jwtService.generateAccessToken(user);
+        String refreshToken = jwtService.generateRefreshToken(user);
+
+        saveUserToken(accessToken, refreshToken, user);
+
+        return new AuthenticationResponse(accessToken, refreshToken,user.getRole() + " registration was successful");
     }
 
     public AuthenticationResponse authenticate(User request) {
@@ -73,7 +106,7 @@ public class AuthenticationService {
         revokeAllTokenByUser(user);
         saveUserToken(accessToken, refreshToken, user);
 
-        return new AuthenticationResponse(accessToken, refreshToken, "User login was successful");
+        return new AuthenticationResponse(accessToken, refreshToken, user.getRole() + " login was successful");
     }
 
     private void revokeAllTokenByUser(User user) {

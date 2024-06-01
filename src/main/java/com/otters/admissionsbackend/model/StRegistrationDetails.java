@@ -13,13 +13,13 @@ public class StRegistrationDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "registration_id")
     private Registrations registration;
 
-    private Integer order;
+    private Integer numericalOrder;
 }

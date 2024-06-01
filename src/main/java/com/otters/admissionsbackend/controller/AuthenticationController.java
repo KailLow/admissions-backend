@@ -1,6 +1,7 @@
 package com.otters.admissionsbackend.controller;
 
 import com.otters.admissionsbackend.model.AuthenticationResponse;
+import com.otters.admissionsbackend.model.Profile;
 import com.otters.admissionsbackend.model.User;
 import com.otters.admissionsbackend.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +25,13 @@ public class AuthenticationController {
             @RequestBody User request
     ) {
         return ResponseEntity.ok(authenticationService.register(request));
+    }
+
+    @PostMapping("/register/student")
+    public ResponseEntity<AuthenticationResponse> studentRegister(
+            @RequestBody Profile request
+            ) {
+        return ResponseEntity.ok(authenticationService.studentRegister(request));
     }
 
     @PostMapping("/login")

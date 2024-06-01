@@ -40,6 +40,8 @@ public class SecurityConfig {
                                 .requestMatchers("/major_class/**").authenticated()
                                 .requestMatchers("/bench_mark/**").authenticated()
                                 .requestMatchers("/room/**").authenticated()
+                                .requestMatchers("/student/**").authenticated()
+                                .requestMatchers("/paper/**").authenticated()
                                 .anyRequest()
                                 .authenticated()
                 ).userDetailsService(userDetailsServiceImp)

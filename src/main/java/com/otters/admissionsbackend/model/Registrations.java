@@ -8,10 +8,10 @@ public class Registrations {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "subject_set_id")
     private SubjectSet subjectSet;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "class_code")
     private MajorClass majorClass;
 }

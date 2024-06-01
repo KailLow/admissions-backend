@@ -21,4 +21,7 @@ public class Student {
     @JoinColumn(name = "pass_registration_id")
     private Registrations passed;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

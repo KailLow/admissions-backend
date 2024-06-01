@@ -16,11 +16,11 @@ public class ExamRoom {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "subject_id")
     private Subject subject;
 

@@ -28,4 +28,12 @@ public class ProfileController {
     public List<Profile> getAllProfile(@RequestParam(defaultValue = "") String name) {
         return profileService.findByName(name);
     }
+
+    @GetMapping("/{id}")
+    public Profile getProfile(
+            @PathVariable String id
+    ) throws Exception {
+        Profile profile = profileService.findById(id);
+        return profile;
+    }
 }
