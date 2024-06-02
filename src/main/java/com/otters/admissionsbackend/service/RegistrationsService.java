@@ -9,6 +9,7 @@ import com.otters.admissionsbackend.repository.ClassRepository;
 import com.otters.admissionsbackend.repository.RegistrationsRepository;
 import com.otters.admissionsbackend.repository.SubjectSetRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -59,4 +60,14 @@ public class RegistrationsService {
         }
         repository.deleteById(id);
     }
+
+//    public List<Registrations> findByMajorClass(String classId) {
+//        Optional<MajorClass> majorClass = classRepository.findById(classId);
+//        if (majorClass.isEmpty())
+//            throw new ResponseStatusException(
+//                    HttpStatus.NOT_FOUND, new Error("Class not existed").toString()
+//            );
+//
+//        return (repository.findByMajorClass(classId));
+//    }
 }

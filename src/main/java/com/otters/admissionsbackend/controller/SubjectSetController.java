@@ -23,8 +23,8 @@ public class SubjectSetController {
     }
 
     @GetMapping("")
-    public List<SubjectSet> getAll() {
-        return service.findAll();
+    public ResponseEntity<List<SubjectSet>> getAll() {
+        return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/{id}")

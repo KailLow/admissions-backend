@@ -23,14 +23,21 @@ public class RegistrationsController {
     }
 
     @GetMapping("")
-    public List<Registrations> getAll() {
-        return service.findAll();
+    public ResponseEntity<List<Registrations>> getAll() {
+        return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Registrations> getById(@PathVariable String id) {
         return ResponseEntity.ok(service.findById(id));
     }
+
+//    @GetMapping("/class/{id}")
+//    public ResponseEntity<List<Registrations>> findByMajorClass(
+//            @PathVariable String id
+//    ) {
+//        return ResponseEntity.ok(service.findByMajorClass(id));
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable String id) {
