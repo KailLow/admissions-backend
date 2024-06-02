@@ -1,6 +1,7 @@
 package com.otters.admissionsbackend.controller;
 
 import com.otters.admissionsbackend.model.ExamRoomDetails;
+import com.otters.admissionsbackend.model.request.ExRoomDtlsRequest;
 import com.otters.admissionsbackend.service.ExamRoomDetailsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class ExamRoomDetailsController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ExamRoomDetails> post(@RequestBody ExamRoomDetails details) {
+    public ResponseEntity<ExamRoomDetails> post(@RequestBody ExRoomDtlsRequest details) {
         return ResponseEntity.ok(service.add(details));
     }
 

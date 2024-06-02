@@ -1,6 +1,7 @@
 package com.otters.admissionsbackend.controller;
 
 import com.otters.admissionsbackend.model.SubjectSet;
+import com.otters.admissionsbackend.model.request.SubjectSetRequest;
 import com.otters.admissionsbackend.service.SubjectSetService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +18,13 @@ public class SubjectSetController {
     }
 
     @PostMapping("")
-    public ResponseEntity<SubjectSet> post(@RequestBody SubjectSet subjectSet) {
+    public ResponseEntity<SubjectSet> post(@RequestBody SubjectSetRequest subjectSet) {
         return ResponseEntity.ok(service.add(subjectSet));
     }
 
     @GetMapping("")
-    public List<SubjectSet> getAll() {
-        return service.findAll();
+    public ResponseEntity<List<SubjectSet>> getAll() {
+        return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/{id}")

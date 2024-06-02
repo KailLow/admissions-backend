@@ -1,6 +1,7 @@
 package com.otters.admissionsbackend.controller;
 
 import com.otters.admissionsbackend.model.StRegistrationDetails;
+import com.otters.admissionsbackend.model.request.StRegistrationRequest;
 import com.otters.admissionsbackend.service.StRegistrationDetailsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +18,13 @@ public class StRegistrationDetailsController {
     }
 
     @PostMapping("")
-    public ResponseEntity<StRegistrationDetails> post(@RequestBody StRegistrationDetails details) {
+    public ResponseEntity<StRegistrationDetails> post(@RequestBody StRegistrationRequest details) {
         return ResponseEntity.ok(service.add(details));
     }
 
     @GetMapping("")
-    public List<StRegistrationDetails> getAll() {
-        return service.findAll();
+    public ResponseEntity<List<StRegistrationDetails>> getAll() {
+        return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/{id}")

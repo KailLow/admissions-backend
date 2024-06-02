@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,5 +16,7 @@ public class SubjectSet {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String name;
-    private Collection<String> subjectId;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Subject> subjects;
 }
