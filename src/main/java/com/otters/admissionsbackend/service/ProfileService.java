@@ -1,5 +1,7 @@
 package com.otters.admissionsbackend.service;
 
+import com.otters.admissionsbackend.command.ProfileCommand;
+import com.otters.admissionsbackend.exceptionHandler.Error;
 import com.otters.admissionsbackend.model.AuthenticationResponse;
 import com.otters.admissionsbackend.model.Profile;
 import com.otters.admissionsbackend.repository.ProfileRepository;
@@ -9,10 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProfileService {
     private final ProfileRepository repository;
+    private static final ProfileCommand command = new ProfileCommand();
 
     public ProfileService(ProfileRepository profileRepository) {
         this.repository = profileRepository;
@@ -38,5 +42,28 @@ public class ProfileService {
 
     public Profile findById(String id) throws Exception {
         return repository.findById(id).get();
+    }
+
+    public Profile update(String id, Profile request) {
+        Optional<Profile> profileOptional = repository.findById(id);
+        if (profileOptional.isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, new Error("Profile not existed").toString()
+            );
+        }
+        Profile profile = profileOptional.get();
+        command.copy(profile, request);
+
+        return repository.save(profile);
+    }
+
+    public void remove(String id) {
+        Optional<Profile> profileOptional = repository.findById(id);
+        if (profileOptional.isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, new Error("Profile not existed").toString()
+            );
+        }
+        repository.deleteById(id);
     }
 }

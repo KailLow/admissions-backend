@@ -25,15 +25,29 @@ public class ProfileController {
     }
 
     @GetMapping("/all-profile")
-    public List<Profile> getAllProfile(@RequestParam(defaultValue = "") String name) {
-        return profileService.findByName(name);
+    public ResponseEntity<List<Profile>> getAllProfile(@RequestParam(defaultValue = "") String name) {
+        return ResponseEntity.ok(profileService.findByName(name));
     }
 
     @GetMapping("/{id}")
-    public Profile getProfile(
+    public ResponseEntity<Profile> getProfile(
             @PathVariable String id
     ) throws Exception {
         Profile profile = profileService.findById(id);
-        return profile;
+        return ResponseEntity.ok(profile);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable String id) {
+        profileService.remove(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Profile> update(
+            @PathVariable String id,
+            @RequestBody Profile request
+    ) {
+        return ResponseEntity.ok(profileService.update(id, request));
     }
 }
