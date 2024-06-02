@@ -69,8 +69,4 @@ public class ExamRoomService {
             );
         repository.deleteById(id);
     }
-
-    public ExamRoom update(String id) {
-
-    }
 }
