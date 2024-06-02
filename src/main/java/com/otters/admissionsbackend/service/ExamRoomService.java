@@ -70,7 +70,29 @@ public class ExamRoomService {
         repository.deleteById(id);
     }
 
-//    public ExamRoom update(String id) {
-//
-//    }
+    public ExamRoom update(String id, ExamRoomRequest request) {
+        Optional<ExamRoom> examRoomOptional = repository.findById(id);
+        if (examRoomOptional.isEmpty())
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, new Error("Exam room not existed").toString()
+            );
+
+        Optional<Room> room = roomRepository.findById(request.getExamRoomId());
+        if (room.isEmpty())
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, new Error("Room not existed").toString()
+            );
+
+        Optional<Subject> subject = subjectRepository.findById(request.getSubjectId());
+        if (subject.isEmpty())
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, new Error("Subject not existed").toString()
+            );
+
+        ExamRoom examRoom = examRoomOptional.get();
+        examRoom.setRoom(room.get());
+        examRoom.setSubject(subject.get());
+        examRoom.setDate(request.getDate());
+        return repository.save(examRoom);
+    }
 }

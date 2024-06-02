@@ -1,6 +1,7 @@
 package com.otters.admissionsbackend.controller;
 
 import com.otters.admissionsbackend.model.Registrations;
+import com.otters.admissionsbackend.model.request.RegistrationRequest;
 import com.otters.admissionsbackend.service.RegistrationsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class RegistrationsController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Registrations> post(@RequestBody Registrations registration) {
+    public ResponseEntity<Registrations> post(@RequestBody RegistrationRequest registration) {
         return ResponseEntity.ok(service.add(registration));
     }
 
