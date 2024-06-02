@@ -34,13 +34,13 @@ public class ExamController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteExamById(@PathVariable String id) {
+    public ResponseEntity<?> deleteExamById(@PathVariable String id) {
         examService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Exam> updateExam(@PathVariable String id, @RequestBody Exam exam) {
-        return ResponseEntity.ok(examService.update(id, exam));
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Exam> updateExam(@PathVariable String id, @RequestBody Exam exam) {
+//        return ResponseEntity.ok(examService.update(id, exam));
+//    }
 }
