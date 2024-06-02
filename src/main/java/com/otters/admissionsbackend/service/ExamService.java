@@ -44,10 +44,10 @@ public class ExamService {
         repository.deleteById(id);
     }
 
-    public Exam update(String id, Exam updatedExam) {
-        Exam existingExam = findById(id);
-        existingExam.setName(updatedExam.getName());
-        existingExam.setYear(updatedExam.getYear());
-        return repository.save(existingExam);
-    }
+//    public Exam update(String id, Exam updatedExam) {
+//        Exam existingExam = findById(id);
+//        existingExam.setName(updatedExam.getName());
+//        existingExam.setYear(updatedExam.getYear());
+//        return repository.save(existingExam);
+//    }
 }

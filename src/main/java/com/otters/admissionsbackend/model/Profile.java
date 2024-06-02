@@ -66,6 +66,18 @@ public class Profile implements Prototype {
         this.address = address;
     }
 
+    public void setNumberId(String numberId) {
+        this.numberId = numberId;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
     @Override
     public Prototype clone() {
         return new Profile(
