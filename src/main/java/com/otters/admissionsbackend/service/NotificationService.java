@@ -47,7 +47,7 @@ public class NotificationService {
         Notification Notification = new Notification();
         Notification.setContent(request.getContent());
         Notification.setTitle(request.getTitle());
-
+        Notification.setTarget(request.getTarget());
         return repository.save(Notification);
     }
 }
