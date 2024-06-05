@@ -46,9 +46,7 @@ public class PaperContainerService {
                         HttpStatus.NOT_FOUND, new Error("Exam room not found").toString()
                 );
             ExamRoom room = examRoom.get();
-
             paperContainers.setExamRooms(room);
-
 
         return repository.save(paperContainers);
     }

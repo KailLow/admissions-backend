@@ -52,4 +52,8 @@ public class StudentService {
     public Student findById(String id) {
         return repository.findById(id).get();
     }
+
+    public List<Student> getStudentsOrderedByName() {
+        return repository.findAllByOrderByProfileFullNameAsc();
+    }
 }
