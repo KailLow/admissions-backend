@@ -17,7 +17,9 @@ public class TimeToChangeService {
     }
 
     public TimeToChange add(TimeToChange timeToChange) {
-        return repository.save(timeToChange);
+        TimeToChange time = new TimeToChange();
+        time = (TimeToChange) timeToChange.clone();
+        return repository.save(time);
     }
 
     public List<TimeToChange> findAll() {
