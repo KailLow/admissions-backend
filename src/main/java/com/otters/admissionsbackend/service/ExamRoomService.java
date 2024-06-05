@@ -41,7 +41,6 @@ public class ExamRoomService {
             );
 
         ExamRoom examRoom = new ExamRoom();
-        examRoom.setPaperContainers(null);
         examRoom.setRoom(room.get());
         examRoom.setSubject(subject.get());
         examRoom.setDate(request.getDate());

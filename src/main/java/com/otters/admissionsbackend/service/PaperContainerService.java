@@ -36,17 +36,16 @@ public class PaperContainerService {
                     HttpStatus.NOT_FOUND, new Error("Subject not found").toString()
             );
         paperContainers.setSubject(subject.get());
-        List<ExamRoom> examRooms = new ArrayList<>();
-        for (String id: request.getExamRoomId()
-             ) {
-            Optional<ExamRoom> examRoom = examRoomRepository.findById(id);
+
+            Optional<ExamRoom> examRoom = examRoomRepository.findById(request.getExamRoomId());
             if (examRoom.isEmpty())
                 throw new ResponseStatusException(
                         HttpStatus.NOT_FOUND, new Error("Exam room not found").toString()
                 );
             ExamRoom room = examRoom.get();
-            examRooms.add(room);
-        }
+
+            paperContainers.setExamRooms(room);
+
 
         return repository.save(paperContainers);
     }
