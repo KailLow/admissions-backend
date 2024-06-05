@@ -1,6 +1,7 @@
 package com.otters.admissionsbackend.config;
 
 import com.otters.admissionsbackend.filter.JwtAuthenticationFilter;
+import com.otters.admissionsbackend.model.Role;
 import com.otters.admissionsbackend.service.UserDetailsServiceImp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,6 +47,7 @@ public class SecurityConfig {
                                 .requestMatchers("/examRoomDetails/**").authenticated()
                                 .requestMatchers("/subjectSets/**").authenticated()
                                 .requestMatchers("/stRegistrationDetails/**").authenticated()
+                                .requestMatchers("/admin/user").hasAnyAuthority(String.valueOf(Role.ADMIN))
                                 .anyRequest()
                                 .authenticated()
                 ).userDetailsService(userDetailsServiceImp)

@@ -131,6 +131,10 @@ public class AuthenticationService {
         tokenRepository.save(token);
     }
 
+    public List<User> getAll() {
+        return repository.findAll();
+    }
+
     public ResponseEntity refreshToken(
             HttpServletRequest request,
             HttpServletResponse response) {
