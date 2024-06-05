@@ -12,7 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PaperContainerService {
@@ -26,7 +29,7 @@ public class PaperContainerService {
         this.examRoomRepository = examRoomRepository;
     }
 
-    public PaperContainers add (PaperContainerRequest request) {
+    public PaperContainers add(PaperContainerRequest request) {
         PaperContainers paperContainers = new PaperContainers();
         paperContainers.setNumberOfPapers(request.getNumberOfPapers());
 
@@ -54,6 +57,41 @@ public class PaperContainerService {
 
     public List<PaperContainers> findAll() {
         return repository.findAll();
+    }
 
+    public void delete(String id) {
+        if (!repository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, new Error("Paper container not found").toString());
+        }
+        repository.deleteById(id);
+    }
+
+    public PaperContainers update(String id, PaperContainerRequest request) {
+        Optional<PaperContainers> paperContainersOptional = repository.findById(id);
+        if (paperContainersOptional.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, new Error("Paper container not found").toString());
+        }
+        PaperContainers paperContainers = paperContainersOptional.get();
+        paperContainers.setNumberOfPapers(request.getNumberOfPapers());
+
+        Optional<Subject> subject = subjectRepository.findById(request.getSubjectId());
+        if (subject.isEmpty())
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, new Error("Subject not found").toString()
+            );
+        paperContainers.setSubject(subject.get());
+
+        Set<ExamRoom> examRooms = new HashSet<>();
+        for (String examRoomId : request.getExamRoomId()) {
+            Optional<ExamRoom> examRoom = examRoomRepository.findById(examRoomId);
+            if (examRoom.isEmpty())
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, new Error("Exam room not found").toString()
+                );
+            examRooms.add(examRoom.get());
+        }
+        paperContainers.setExamRooms(examRooms);
+
+        return repository.save(paperContainers);
     }
 }

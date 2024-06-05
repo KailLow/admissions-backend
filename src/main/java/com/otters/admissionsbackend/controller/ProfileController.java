@@ -32,8 +32,16 @@ public class ProfileController {
     @GetMapping("/{id}")
     public ResponseEntity<Profile> getProfile(
             @PathVariable String id
-    ) throws Exception {
+    ) {
         Profile profile = profileService.findById(id);
+        return ResponseEntity.ok(profile);
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Profile> getProfileByEmail(
+            @PathVariable String email
+    ){
+        Profile profile = profileService.findByEmail(email);
         return ResponseEntity.ok(profile);
     }
 
@@ -50,4 +58,6 @@ public class ProfileController {
     ) {
         return ResponseEntity.ok(profileService.update(id, request));
     }
+
+
 }
