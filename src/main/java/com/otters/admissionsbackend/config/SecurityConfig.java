@@ -5,6 +5,7 @@ import com.otters.admissionsbackend.model.Role;
 import com.otters.admissionsbackend.service.UserDetailsServiceImp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -47,6 +48,8 @@ public class SecurityConfig {
                                 .requestMatchers("/examRoomDetails/**").authenticated()
                                 .requestMatchers("/subjectSets/**").authenticated()
                                 .requestMatchers("/stRegistrationDetails/**").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/news/**").permitAll()
+                                .requestMatchers("/admin/news/**").hasAnyAuthority(String.valueOf(Role.ADMIN), String.valueOf(Role.KHAOTHI), String.valueOf(Role.DAOTAO))
                                 .requestMatchers("/admin/user").hasAnyAuthority(String.valueOf(Role.ADMIN))
                                 .anyRequest()
                                 .authenticated()
