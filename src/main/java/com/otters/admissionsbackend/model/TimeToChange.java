@@ -19,6 +19,7 @@ public class TimeToChange implements Prototype {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    private Date wishChangeTime;
     private Date registrationTime;
     private Date admissionTime;
     private Date feePayTime;
@@ -30,6 +31,6 @@ public class TimeToChange implements Prototype {
 
     @Override
     public Prototype clone() {
-        return new TimeToChange(this.id, this.registrationTime, this.admissionTime, this.feePayTime, this.personalInformationChangeTime, this.resultTime, null);
+        return new TimeToChange(this.id,this.wishChangeTime, this.registrationTime, this.admissionTime, this.feePayTime, this.personalInformationChangeTime, this.resultTime, null);
     }
 }
