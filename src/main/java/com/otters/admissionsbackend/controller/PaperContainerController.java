@@ -3,6 +3,7 @@ package com.otters.admissionsbackend.controller;
 import com.otters.admissionsbackend.model.paper.PaperContainers;
 import com.otters.admissionsbackend.model.request.PaperContainerRequest;
 import com.otters.admissionsbackend.service.PaperContainerService;
+import com.otters.admissionsbackend.service.RoomDetailsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +16,11 @@ import java.util.List;
 public class PaperContainerController {
 
     private final PaperContainerService paperContainerService;
+    private final RoomDetailsService roomDetailsService;
 
-    public PaperContainerController(PaperContainerService paperContainerService) {
+    public PaperContainerController(PaperContainerService paperContainerService, RoomDetailsService roomDetailsService) {
         this.paperContainerService = paperContainerService;
+        this.roomDetailsService = roomDetailsService;
     }
 
     @PostMapping
@@ -56,5 +59,10 @@ public class PaperContainerController {
         } catch (ResponseStatusException ex) {
             return ResponseEntity.status(ex.getStatusCode()).body(ex.getReason());
         }
+    }
+
+    @GetMapping("/paper/{id}")
+    public ResponseEntity<List<?>> getExamRoomDetails(@PathVariable String id) {
+        return ResponseEntity.ok(roomDetailsService.get(id));
     }
 }
