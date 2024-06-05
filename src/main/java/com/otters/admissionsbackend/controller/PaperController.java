@@ -1,5 +1,6 @@
 package com.otters.admissionsbackend.controller;
 
+import com.otters.admissionsbackend.dto.StudentPaperScoreDTO;
 import com.otters.admissionsbackend.model.paper.Paper;
 import com.otters.admissionsbackend.model.request.PaperRequest;
 import com.otters.admissionsbackend.model.response.PaperResponse;
@@ -48,5 +49,12 @@ public class PaperController {
             @RequestBody PaperRequest request
     ) {
         return ResponseEntity.ok(service.update(id, request));
+    }
+
+    @GetMapping("/get_pass")
+    public ResponseEntity<List<StudentPaperScoreDTO>> findTop(
+            @RequestParam(defaultValue = "24") int limit
+    ) {
+        return ResponseEntity.ok(service.getTopStudentsByTotalPaperScore(24));
     }
 }
