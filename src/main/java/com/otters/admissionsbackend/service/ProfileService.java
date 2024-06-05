@@ -36,11 +36,14 @@ public class ProfileService {
         return repository.findByFullNameContainingIgnoreCase(name);
     }
 
-    public Profile findByEmail(String email) throws Exception {
-        return repository.findByEmail(email).get();
+    public Profile findByEmail(String email) {
+        Optional<Profile> profile = repository.findByEmail(email);
+        if (profile.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "not existed");
+        return profile.get();
     }
 
-    public Profile findById(String id) throws Exception {
+    public Profile findById(String id) {
         return repository.findById(id).get();
     }
 
