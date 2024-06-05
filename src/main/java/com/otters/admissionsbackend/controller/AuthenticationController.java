@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
@@ -46,8 +48,13 @@ public class AuthenticationController {
         return authenticationService.refreshToken(request, response);
     }
 
-    @GetMapping("/demo")
-    public ResponseEntity<String> demo() {
-        return ResponseEntity.ok("Hello from secured url");
+//    @GetMapping("/demo")
+//    public ResponseEntity<String> demo() {
+//        return ResponseEntity.ok("Hello from secured url");
+//    }
+
+    @GetMapping("/admin/user")
+    public ResponseEntity<List<User>> getAll() {
+        return ResponseEntity.ok(authenticationService.getAll());
     }
 }
