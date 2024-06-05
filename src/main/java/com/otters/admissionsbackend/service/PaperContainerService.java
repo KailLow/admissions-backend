@@ -81,16 +81,12 @@ public class PaperContainerService {
             );
         paperContainers.setSubject(subject.get());
 
-        Set<ExamRoom> examRooms = new HashSet<>();
-        for (String examRoomId : request.getExamRoomId()) {
-            Optional<ExamRoom> examRoom = examRoomRepository.findById(examRoomId);
+            Optional<ExamRoom> examRoom = examRoomRepository.findById(request.getExamRoomId());
             if (examRoom.isEmpty())
                 throw new ResponseStatusException(
                         HttpStatus.NOT_FOUND, new Error("Exam room not found").toString()
                 );
-            examRooms.add(examRoom.get());
-        }
-        paperContainers.setExamRooms(examRooms);
+        paperContainers.setExamRooms(examRoom.get());
 
         return repository.save(paperContainers);
     }
