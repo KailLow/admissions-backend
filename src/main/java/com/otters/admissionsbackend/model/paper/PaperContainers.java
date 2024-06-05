@@ -22,6 +22,6 @@ public class PaperContainers {
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
-    @OneToMany(mappedBy = "paperContainers")
+    @OneToMany(mappedBy = "paperContainers", cascade = CascadeType.ALL)
     private Set<ExamRoom> examRooms;
 }

@@ -1,6 +1,7 @@
 package com.otters.admissionsbackend.service;
 
 import com.otters.admissionsbackend.model.*;
+import com.otters.admissionsbackend.model.response.StudentAuthenticationResponse;
 import com.otters.admissionsbackend.repository.ProfileRepository;
 import com.otters.admissionsbackend.repository.StudentRepository;
 import com.otters.admissionsbackend.repository.TokenRepository;
@@ -91,7 +92,7 @@ public class AuthenticationService {
         return new AuthenticationResponse(accessToken, refreshToken,user.getRole() + " registration was successful", user.getRole());
     }
 
-    public AuthenticationResponse authenticate(User request) {
+    public StudentAuthenticationResponse authenticate(User request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
@@ -106,7 +107,12 @@ public class AuthenticationService {
         revokeAllTokenByUser(user);
         saveUserToken(accessToken, refreshToken, user);
 
-        return new AuthenticationResponse(accessToken, refreshToken, user.getRole() + " login was successful", user.getRole());
+        String name = "";
+        if (user.getRole() == Role.STUDENT) {
+            name = studentRepository.findByUserId(user.getId()).getProfile().getFullName();
+        }
+
+        return new StudentAuthenticationResponse(accessToken, refreshToken, user.getRole() + " login was successful", user.getRole(), name);
     }
 
     private void revokeAllTokenByUser(User user) {
