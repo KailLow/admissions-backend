@@ -10,5 +10,5 @@ import java.util.Set;
 public class PaperContainerRequest {
     private Integer numberOfPapers;
     private String subjectId;
-    private Set<String> examRoomId;
+    private String examRoomId;
 }

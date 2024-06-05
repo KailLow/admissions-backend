@@ -11,5 +11,4 @@ public class ExamRoomRequest {
     private String examRoomId;
     private String subjectId;
     private Date date;
-    private String paperContainersId;
 }

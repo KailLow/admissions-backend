@@ -25,8 +25,4 @@ public class ExamRoom {
     private Subject subject;
 
     private Date date;
-
-    @ManyToOne
-    @JoinColumn(name = "paper_container_id", nullable = true)
-    private PaperContainers paperContainers;
 }
