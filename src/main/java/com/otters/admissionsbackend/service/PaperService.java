@@ -1,6 +1,7 @@
 package com.otters.admissionsbackend.service;
 
 import com.otters.admissionsbackend.command.PaperCommand;
+import com.otters.admissionsbackend.dto.StudentPaperScoreDTO;
 import com.otters.admissionsbackend.exceptionHandler.Error;
 import com.otters.admissionsbackend.model.Student;
 import com.otters.admissionsbackend.model.Subject;
@@ -10,6 +11,8 @@ import com.otters.admissionsbackend.model.response.PaperResponse;
 import com.otters.admissionsbackend.repository.PaperRepository;
 import com.otters.admissionsbackend.repository.StudentRepository;
 import com.otters.admissionsbackend.repository.SubjectRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -89,5 +92,14 @@ public class PaperService {
         Paper paper = paperOptional.get();
         command.fetch(paper, request);
         return repository.save(paper);
+    }
+
+
+    public Page<Paper> getAllPapersSortedByScore(Pageable pageable) {
+        return repository.findByOrderByScoreDesc(pageable);
+    }
+
+    public List<StudentPaperScoreDTO> getTopStudentsByTotalPaperScore(int limit) {
+        return repository.findTopStudentsByTotalPaperScore(limit);
     }
 }
