@@ -44,4 +44,9 @@ public class StudentController {
 //        User user = authenticationService.studentRegister(request.getEmail(), request.getNumberId());
 //        return ResponseEntity.ok(service.add(profile.getId(), user.getId()));
 //    }
+
+    @GetMapping("/students")
+    public List<Student> getStudentsOrderedByName() {
+        return service.getStudentsOrderedByName();
+    }
 }
