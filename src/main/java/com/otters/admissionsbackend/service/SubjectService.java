@@ -37,7 +37,9 @@ public class SubjectService {
         }
 
         Subject subject = new Subject();
-        subject = (Subject) subjectDTO.clone();
+        subject.setName(subjectDTO.getName());
+        subject.setParameter(subjectDTO.getParameter());
+        subject.setTime(subjectDTO.getParameter());
         return repository.save(subject);
     }
 

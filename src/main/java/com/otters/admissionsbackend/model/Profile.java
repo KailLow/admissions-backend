@@ -14,7 +14,7 @@ import java.util.Date;
 @Table(name = "profile")
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Profile implements Prototype {
+public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -78,21 +78,21 @@ public class Profile implements Prototype {
         this.school = school;
     }
 
-    @Override
-    public Prototype clone() {
-        return new Profile(
-                this.id,
-                this.numberId,
-                this.fullName,
-                this.gender,
-                this.dateOfBirth,
-                this.phoneNumber,
-                this.email,
-                this.placeOfBirth,
-                this.ethnicType,
-                this.houseHold,
-                this.placeOfBirth,
-                this.school
-        );
-    }
+//    @Override
+//    public Prototype clone() {
+//        return new Profile(
+//                this.id,
+//                this.numberId,
+//                this.fullName,
+//                this.gender,
+//                this.dateOfBirth,
+//                this.phoneNumber,
+//                this.email,
+//                this.placeOfBirth,
+//                this.ethnicType,
+//                this.houseHold,
+//                this.placeOfBirth,
+//                this.school
+//        );
+//    }
 }

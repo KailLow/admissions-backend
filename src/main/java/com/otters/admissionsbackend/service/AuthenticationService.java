@@ -73,8 +73,20 @@ public class AuthenticationService {
         user.setPassword(passwordEncoder.encode(request.getNumberId()));
         user.setRole(Role.STUDENT);
 
-        Profile profile = (Profile) request.clone();
-        profileRepository.save(profile);
+
+        Profile profile = new Profile();
+        profile.setFullName(request.getFullName());
+        profile.setEmail(request.getEmail());
+        profile.setAddress(request.getAddress());
+        profile.setGender(request.getGender());
+        profile.setEthnicType(request.getEthnicType());
+        profile.setSchool(request.getSchool());
+        profile.setDateOfBirth(request.getDateOfBirth());
+        profile.setHouseHold(request.getHouseHold());
+        profile.setNumberId("123456");
+        profile.setPlaceOfBirth(request.getPlaceOfBirth());
+        profile.setPhoneNumber(request.getPhoneNumber());
+        profileRepository.save(request);
 
         user = repository.save(user);
 

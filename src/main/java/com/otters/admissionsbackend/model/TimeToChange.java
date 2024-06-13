@@ -15,7 +15,7 @@ import java.util.Date;
 @Table(name = "time_to_change")
 @AllArgsConstructor
 @NoArgsConstructor
-public class TimeToChange implements Prototype {
+public class TimeToChange {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -29,8 +29,8 @@ public class TimeToChange implements Prototype {
     @JoinColumn(name= "exam_id")
     private Exam exam;
 
-    @Override
-    public Prototype clone() {
-        return new TimeToChange(this.id,this.wishChangeTime, this.registrationTime, this.admissionTime, this.feePayTime, this.personalInformationChangeTime, this.resultTime, null);
-    }
+//    @Override
+//    public Prototype clone() {
+//        return new TimeToChange(this.id,this.wishChangeTime, this.registrationTime, this.admissionTime, this.feePayTime, this.personalInformationChangeTime, this.resultTime, null);
+//    }
 }

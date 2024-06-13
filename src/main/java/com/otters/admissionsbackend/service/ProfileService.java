@@ -27,7 +27,18 @@ public class ProfileService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, new Error("Students has been existed").toString());
         }
 
-        Profile profileStudent = (Profile) profile.clone();
+        Profile profileStudent = new Profile();
+        profileStudent.setFullName(profile.getFullName());
+        profileStudent.setEmail(profile.getEmail());
+        profileStudent.setAddress(profile.getAddress());
+        profileStudent.setGender(profile.getGender());
+        profileStudent.setEthnicType(profile.getEthnicType());
+        profileStudent.setSchool(profile.getSchool());
+        profileStudent.setDateOfBirth(profile.getDateOfBirth());
+        profileStudent.setHouseHold(profile.getHouseHold());
+        profileStudent.setNumberId("123456");
+        profileStudent.setPlaceOfBirth(profile.getPlaceOfBirth());
+        profileStudent.setPhoneNumber(profile.getPhoneNumber());
 
         return repository.save(profileStudent);
     }

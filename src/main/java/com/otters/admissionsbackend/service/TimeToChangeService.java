@@ -18,7 +18,13 @@ public class TimeToChangeService {
 
     public TimeToChange add(TimeToChange timeToChange) {
         TimeToChange time = new TimeToChange();
-        time = (TimeToChange) timeToChange.clone();
+        time.setAdmissionTime(time.getAdmissionTime());
+        time.setWishChangeTime(timeToChange.getWishChangeTime());
+        time.setRegistrationTime(time.getRegistrationTime());
+        time.setResultTime(time.getResultTime());
+        time.setFeePayTime(time.getFeePayTime());
+        time.setExam(timeToChange.getExam());
+        time.setPersonalInformationChangeTime(timeToChange.getPersonalInformationChangeTime());
         return repository.save(time);
     }
 
