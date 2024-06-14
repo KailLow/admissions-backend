@@ -23,12 +23,12 @@ public class ExamController {
     }
 
     @GetMapping("")
-    public List<Exam> getAll(@RequestParam(defaultValue = "") String name) {
-        return examService.findAll(name);
+    public ResponseEntity<List<?>> getAll(@RequestParam(defaultValue = "") String name) {
+        return ResponseEntity.ok(examService.findAll(name));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Exam> getExamById(@PathVariable String id) {
+    public ResponseEntity<?> getExamById(@PathVariable String id) {
         return ResponseEntity.ok(examService.findById(id));
     }
 
@@ -38,8 +38,8 @@ public class ExamController {
         return ResponseEntity.noContent().build();
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Exam> updateExam(@PathVariable String id, @RequestBody Exam exam) {
-//        return ResponseEntity.ok(examService.update(id, exam));
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateExam(@PathVariable String id, @RequestBody ExamDTO dto) {
+        return ResponseEntity.ok(examService.update(dto, id));
+    }
 }

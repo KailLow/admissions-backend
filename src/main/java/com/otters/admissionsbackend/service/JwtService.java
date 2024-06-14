@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.function.Function;
 
 @Service
-@RequiredArgsConstructor
 public class JwtService {
     @Value("${jwt.JWT_SECRET}")
     private String signature;

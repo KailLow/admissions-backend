@@ -1,6 +1,7 @@
 package com.otters.admissionsbackend.service;
 
 import com.otters.admissionsbackend.dto.ExamDTO;
+import com.otters.admissionsbackend.mapper.DTOtoEntityMapper;
 import com.otters.admissionsbackend.model.Exam;
 import com.otters.admissionsbackend.repository.ExamRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ExamService {
     private final ExamRepository repository;
+
+    private final DTOtoEntityMapper mapper;
 
     public Exam add(ExamDTO dto) {
         Optional<Exam> examOptional = repository.findByName(dto.getName());
@@ -44,6 +47,16 @@ public class ExamService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Exam not found");
         }
         repository.deleteById(id);
+    }
+
+    public Exam update(ExamDTO dto, String id) {
+        Optional<Exam> examOptional = repository.findById(id);
+        if (examOptional.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Exam not found");
+        }
+        Exam exam = examOptional.get();
+        mapper.updateExamFromDto(dto, exam);
+        return repository.save(exam);
     }
 
 //    public Exam update(String id, Exam updatedExam) {
