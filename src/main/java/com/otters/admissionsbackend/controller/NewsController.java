@@ -2,18 +2,16 @@ package com.otters.admissionsbackend.controller;
 
 import com.otters.admissionsbackend.model.News;
 import com.otters.admissionsbackend.service.NewsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class NewsController {
     private final NewsService service;
-
-    public NewsController(NewsService service) {
-        this.service = service;
-    }
 
     @GetMapping("/news")
     public ResponseEntity<List<News>> findAll() {

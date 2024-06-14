@@ -10,13 +10,6 @@ import java.util.Date;
 @Table(name = "notification")
 @Getter
 @Setter
-public class Notification {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
-
-    private String title;
+public class Notification extends BaseNewEntity {
     private String target;
-    private String content;
-    private Date day;
 }

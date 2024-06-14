@@ -2,18 +2,16 @@ package com.otters.admissionsbackend.controller;
 
 import com.otters.admissionsbackend.model.Post;
 import com.otters.admissionsbackend.service.PostService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class PostController {
     private final PostService service;
-
-    public PostController(PostService service) {
-        this.service = service;
-    }
 
     @GetMapping("/post")
     public ResponseEntity<List<Post>> findAll() {

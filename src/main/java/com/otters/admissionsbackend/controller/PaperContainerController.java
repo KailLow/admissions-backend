@@ -4,6 +4,7 @@ import com.otters.admissionsbackend.model.paper.PaperContainers;
 import com.otters.admissionsbackend.model.request.PaperContainerRequest;
 import com.otters.admissionsbackend.service.PaperContainerService;
 import com.otters.admissionsbackend.service.RoomDetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,15 +14,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/paper-containers")
+@RequiredArgsConstructor
 public class PaperContainerController {
 
     private final PaperContainerService paperContainerService;
     private final RoomDetailsService roomDetailsService;
-
-    public PaperContainerController(PaperContainerService paperContainerService, RoomDetailsService roomDetailsService) {
-        this.paperContainerService = paperContainerService;
-        this.roomDetailsService = roomDetailsService;
-    }
 
     @PostMapping
     public ResponseEntity<?> addPaperContainer(@RequestBody PaperContainerRequest request) {

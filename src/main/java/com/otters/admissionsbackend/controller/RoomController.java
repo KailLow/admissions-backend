@@ -2,6 +2,7 @@ package com.otters.admissionsbackend.controller;
 
 import com.otters.admissionsbackend.model.Room;
 import com.otters.admissionsbackend.service.RoomService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,12 +10,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/room")
+@RequiredArgsConstructor
 public class RoomController {
     private final RoomService service;
-
-    public RoomController(RoomService service) {
-        this.service = service;
-    }
 
     @PostMapping("")
     public ResponseEntity<?> add(

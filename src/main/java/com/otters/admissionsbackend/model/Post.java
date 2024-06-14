@@ -10,13 +10,6 @@ import java.util.Date;
 @Table(name = "post")
 @Getter
 @Setter
-public class Post {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
-
-    private String title;
+public class Post extends BaseNewEntity {
     private String topic;
-    private String content;
-    private Date day;
 }

@@ -6,6 +6,7 @@ import com.otters.admissionsbackend.model.SubjectSet;
 import com.otters.admissionsbackend.model.request.SubjectSetRequest;
 import com.otters.admissionsbackend.repository.SubjectRepository;
 import com.otters.admissionsbackend.repository.SubjectSetRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,14 +16,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class SubjectSetService {
     private final SubjectSetRepository repository;
     private final SubjectRepository subjectRepository;
-
-    public SubjectSetService(SubjectSetRepository repository, SubjectRepository subjectRepository) {
-        this.repository = repository;
-        this.subjectRepository = subjectRepository;
-    }
 
     public SubjectSet add(SubjectSetRequest subjectSet) {
         List<Subject> subjects = new ArrayList<>();

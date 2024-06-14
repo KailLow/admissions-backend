@@ -8,6 +8,7 @@ import com.otters.admissionsbackend.model.request.StRegistrationRequest;
 import com.otters.admissionsbackend.repository.RegistrationsRepository;
 import com.otters.admissionsbackend.repository.StRegistrationDetailsRepository;
 import com.otters.admissionsbackend.repository.StudentRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -16,16 +17,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class StRegistrationDetailsService {
     private final StRegistrationDetailsRepository repository;
     private final StudentRepository studentRepository;
     private final RegistrationsRepository registrationsRepository;
-
-    public StRegistrationDetailsService(StRegistrationDetailsRepository repository, StudentRepository studentRepository, RegistrationsRepository registrationsRepository) {
-        this.repository = repository;
-        this.studentRepository = studentRepository;
-        this.registrationsRepository = registrationsRepository;
-    }
 
     public StRegistrationDetails add(StRegistrationRequest request) {
         Optional<Student> student = studentRepository.findById(request.getStudentId());

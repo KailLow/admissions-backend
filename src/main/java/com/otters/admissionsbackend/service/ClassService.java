@@ -1,8 +1,10 @@
 package com.otters.admissionsbackend.service;
 
-import com.otters.admissionsbackend.model.Exam;
+import com.otters.admissionsbackend.dto.BenchMarkDTO;
+import com.otters.admissionsbackend.dto.ClassDTO;
 import com.otters.admissionsbackend.model.MajorClass;
 import com.otters.admissionsbackend.repository.ClassRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -11,20 +13,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ClassService {
     private final ClassRepository repository;
 
-    public ClassService(ClassRepository repository) {
-        this.repository = repository;
-    }
-
-    public MajorClass add(MajorClass majorClass) {
-        Optional<MajorClass> examOptional = repository.findByName(majorClass.getName());
+    public MajorClass add(ClassDTO request) {
+        Optional<MajorClass> examOptional = repository.findByName(request.getName());
         if (examOptional.isPresent()) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, new Error("Major Class existed").toString()
             );
         }
+
+        MajorClass majorClass = new MajorClass();
+        majorClass.setName(request.getName());
+        majorClass.setQuotas(request.getQuotas());
+        majorClass.setYear(request.getYear());
 
         return repository.save(majorClass);
     }
@@ -38,7 +42,7 @@ public class ClassService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Major Class not found"));
     }
 
-    public MajorClass update(String id, MajorClass majorClass) {
+    public MajorClass update(String id, ClassDTO majorClass) {
         MajorClass existingClass = findById(id);
         existingClass.setName(majorClass.getName());
         existingClass.setYear(majorClass.getYear());

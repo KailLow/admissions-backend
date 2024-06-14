@@ -1,13 +1,14 @@
 package com.otters.admissionsbackend.service;
 
+import com.otters.admissionsbackend.dto.ExamRoomDetailDTO;
 import com.otters.admissionsbackend.exceptionHandler.Error;
 import com.otters.admissionsbackend.model.ExamRoom;
 import com.otters.admissionsbackend.model.ExamRoomDetails;
 import com.otters.admissionsbackend.model.Student;
-import com.otters.admissionsbackend.model.request.ExRoomDtlsRequest;
 import com.otters.admissionsbackend.repository.ExamRoomDetailsRepository;
 import com.otters.admissionsbackend.repository.ExamRoomRepository;
 import com.otters.admissionsbackend.repository.StudentRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -17,18 +18,13 @@ import java.util.Optional;
 
 
 @Service
+@RequiredArgsConstructor
 public class ExamRoomDetailsService {
     private final ExamRoomDetailsRepository repository;
     private final StudentRepository studentRepository;
     private final ExamRoomRepository examRoomRepository;
 
-    public ExamRoomDetailsService(ExamRoomDetailsRepository repository, StudentRepository studentRepository, ExamRoomRepository examRoomRepository) {
-        this.repository = repository;
-        this.studentRepository = studentRepository;
-        this.examRoomRepository = examRoomRepository;
-    }
-
-    public ExamRoomDetails add(ExRoomDtlsRequest request) {
+    public ExamRoomDetails add(ExamRoomDetailDTO request) {
         Optional<Student> student = studentRepository.findById(request.getStudentId());
         if (student.isEmpty())
             throw new ResponseStatusException(

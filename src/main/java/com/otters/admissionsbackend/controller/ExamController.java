@@ -1,7 +1,9 @@
 package com.otters.admissionsbackend.controller;
 
+import com.otters.admissionsbackend.dto.ExamDTO;
 import com.otters.admissionsbackend.model.Exam;
 import com.otters.admissionsbackend.service.ExamService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,16 +11,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/exam")
+@RequiredArgsConstructor
 public class ExamController {
     private final ExamService examService;
 
-    public ExamController(ExamService examService) {
-        this.examService = examService;
-    }
-
     @PostMapping("")
     public ResponseEntity<?> post (
-            @RequestBody Exam exam
+            @RequestBody ExamDTO exam
     ) {
         return ResponseEntity.ok(examService.add(exam));
     }

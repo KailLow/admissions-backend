@@ -8,6 +8,7 @@ import com.otters.admissionsbackend.model.request.RegistrationRequest;
 import com.otters.admissionsbackend.repository.ClassRepository;
 import com.otters.admissionsbackend.repository.RegistrationsRepository;
 import com.otters.admissionsbackend.repository.SubjectSetRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,16 +18,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class RegistrationsService {
     private final RegistrationsRepository repository;
     private final SubjectSetRepository subjectSetRepository;
     private final ClassRepository classRepository;
-
-    public RegistrationsService(RegistrationsRepository repository, SubjectSetRepository subjectSetRepository, ClassRepository classRepository) {
-        this.repository = repository;
-        this.subjectSetRepository = subjectSetRepository;
-        this.classRepository = classRepository;
-    }
 
     public Registrations add(RegistrationRequest request) {
         Optional<MajorClass> classOptional = classRepository.findById(request.getClassId());

@@ -1,6 +1,9 @@
 package com.otters.admissionsbackend.service;
 
+import com.otters.admissionsbackend.dto.ProfileDTO;
 import com.otters.admissionsbackend.model.*;
+import com.otters.admissionsbackend.model.request.AuthenticationRequest;
+import com.otters.admissionsbackend.model.request.RegisterRequest;
 import com.otters.admissionsbackend.model.response.StudentAuthenticationResponse;
 import com.otters.admissionsbackend.repository.ProfileRepository;
 import com.otters.admissionsbackend.repository.StudentRepository;
@@ -8,6 +11,7 @@ import com.otters.admissionsbackend.repository.TokenRepository;
 import com.otters.admissionsbackend.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AuthenticationService {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
@@ -29,21 +34,7 @@ public class AuthenticationService {
     private final ProfileRepository profileRepository;
     private final StudentRepository studentRepository;
 
-    public AuthenticationService(UserRepository repository,
-                                 PasswordEncoder passwordEncoder,
-                                 JwtService jwtService,
-                                 TokenRepository tokenRepository,
-                                 AuthenticationManager authenticationManager, ProfileRepository profileRepository, StudentRepository studentRepository) {
-        this.repository = repository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-        this.tokenRepository = tokenRepository;
-        this.authenticationManager = authenticationManager;
-        this.profileRepository = profileRepository;
-        this.studentRepository = studentRepository;
-    }
-
-    public AuthenticationResponse register(User request) {
+    public AuthenticationResponse register(RegisterRequest request) {
         // check if user already exist. if exist than authenticate the user
         if(repository.findByUsername(request.getUsername()).isPresent()) {
             return new AuthenticationResponse(null, null,"User already exist", null);
@@ -64,7 +55,7 @@ public class AuthenticationService {
         return new AuthenticationResponse(accessToken, refreshToken,user.getRole() + " registration was successful", user.getRole());
     }
 
-    public AuthenticationResponse studentRegister(Profile request) {
+    public AuthenticationResponse studentRegister(ProfileDTO request) {
         if (repository.findByUsername(request.getEmail()).isPresent()) {
             return new AuthenticationResponse(null, null,"User already exist", null);
         }
@@ -86,7 +77,7 @@ public class AuthenticationService {
         profile.setNumberId("123456");
         profile.setPlaceOfBirth(request.getPlaceOfBirth());
         profile.setPhoneNumber(request.getPhoneNumber());
-        profileRepository.save(request);
+        profileRepository.save(profile);
 
         user = repository.save(user);
 
@@ -101,10 +92,17 @@ public class AuthenticationService {
 
         saveUserToken(accessToken, refreshToken, user);
 
+        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
+//        return authenticationResponse.builder()
+//                .accessToken(accessToken)
+//                .refreshToken(refreshToken)
+//                .role(user.getRole())
+//                .message(" registration was successful")
+//                .build();
         return new AuthenticationResponse(accessToken, refreshToken,user.getRole() + " registration was successful", user.getRole());
     }
 
-    public StudentAuthenticationResponse authenticate(User request) {
+    public StudentAuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),

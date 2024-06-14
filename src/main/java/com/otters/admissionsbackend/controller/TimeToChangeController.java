@@ -3,6 +3,7 @@ package com.otters.admissionsbackend.controller;
 import com.otters.admissionsbackend.model.TimeToChange;
 import com.otters.admissionsbackend.model.response.PaperResponse;
 import com.otters.admissionsbackend.service.TimeToChangeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,12 +11,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/timeToChange")
+@RequiredArgsConstructor
 public class TimeToChangeController {
     private final TimeToChangeService service;
-
-    public TimeToChangeController(TimeToChangeService service) {
-        this.service = service;
-    }
 
     @PostMapping("")
     public ResponseEntity<TimeToChange> post(@RequestBody TimeToChange timeToChange) {

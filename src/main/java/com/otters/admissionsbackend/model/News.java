@@ -10,12 +10,5 @@ import java.util.Date;
 @Table(name = "news")
 @Getter
 @Setter
-public class News {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
-
-    private String title;
-    private String content;
-    private Date day;
+public class News extends BaseNewEntity {
 }

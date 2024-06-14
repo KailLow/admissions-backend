@@ -6,6 +6,7 @@ import com.otters.admissionsbackend.model.User;
 import com.otters.admissionsbackend.repository.ProfileRepository;
 import com.otters.admissionsbackend.repository.StudentRepository;
 import com.otters.admissionsbackend.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -16,14 +17,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class StudentService {
     private final StudentRepository repository;
     private ProfileRepository profileRepository;
     private UserRepository userRepository;
-
-    public StudentService(StudentRepository repository) {
-        this.repository = repository;
-    }
 
     public Student add(String profileId, String userId) {
         Optional<Profile> profileOptional = profileRepository.findById(profileId);

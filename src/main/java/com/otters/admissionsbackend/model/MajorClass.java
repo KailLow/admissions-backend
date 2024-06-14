@@ -25,7 +25,6 @@ public class MajorClass {
     @OneToMany(mappedBy = "majorClass")
     private List<BenchMark> benchMarks;
 
-
     @JsonIgnoreProperties(value = {"registrations"})
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "majorClass")
