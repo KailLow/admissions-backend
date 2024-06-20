@@ -2,6 +2,7 @@ package com.otters.admissionsbackend.service;
 
 import com.otters.admissionsbackend.model.Subject;
 import com.otters.admissionsbackend.repository.SubjectRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -12,12 +13,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class SubjectService {
     private final SubjectRepository repository;
-
-    public SubjectService(SubjectRepository repository) {
-        this.repository = repository;
-    }
 
     public List<Subject> findByName(String name) {
         return repository.findAll();
@@ -37,7 +35,9 @@ public class SubjectService {
         }
 
         Subject subject = new Subject();
-        subject = (Subject) subjectDTO.clone();
+        subject.setName(subjectDTO.getName());
+        subject.setParameter(subjectDTO.getParameter());
+        subject.setTime(subjectDTO.getParameter());
         return repository.save(subject);
     }
 

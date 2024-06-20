@@ -8,6 +8,7 @@ import com.otters.admissionsbackend.model.request.PaperContainerRequest;
 import com.otters.admissionsbackend.repository.ExamRoomRepository;
 import com.otters.admissionsbackend.repository.PaperContainerRepository;
 import com.otters.admissionsbackend.repository.SubjectRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,16 +19,11 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class PaperContainerService {
     private final PaperContainerRepository repository;
     private final SubjectRepository subjectRepository;
     private final ExamRoomRepository examRoomRepository;
-
-    public PaperContainerService(PaperContainerRepository repository, SubjectRepository subjectRepository, ExamRoomRepository examRoomRepository) {
-        this.repository = repository;
-        this.subjectRepository = subjectRepository;
-        this.examRoomRepository = examRoomRepository;
-    }
 
     public PaperContainers add(PaperContainerRequest request) {
         PaperContainers paperContainers = new PaperContainers();

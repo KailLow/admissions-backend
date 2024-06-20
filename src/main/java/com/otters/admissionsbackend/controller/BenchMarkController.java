@@ -1,8 +1,10 @@
 package com.otters.admissionsbackend.controller;
 
+import com.otters.admissionsbackend.dto.BenchMarkDTO;
 import com.otters.admissionsbackend.model.BenchMark;
 import com.otters.admissionsbackend.model.request.BenchMarkRequest;
 import com.otters.admissionsbackend.service.BenchMarkService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,16 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/bench_mark")
+@RequiredArgsConstructor
 public class BenchMarkController {
     private final BenchMarkService service;
 
-    public BenchMarkController(BenchMarkService service) {
-        this.service = service;
-    }
-
     @PostMapping("")
     public ResponseEntity<?> add (
-            @RequestBody BenchMarkRequest request
+            @RequestBody BenchMarkDTO request
             ) {
         return ResponseEntity.ok(service.add(request));
     }
@@ -41,7 +40,7 @@ public class BenchMarkController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BenchMark> updateBenchMark(@PathVariable String id, @RequestBody BenchMarkRequest request) {
+    public ResponseEntity<BenchMark> updateBenchMark(@PathVariable String id, @RequestBody BenchMarkDTO request) {
         return ResponseEntity.ok(service.update(id, request));
     }
 }

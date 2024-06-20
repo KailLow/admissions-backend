@@ -6,6 +6,7 @@ import com.otters.admissionsbackend.model.User;
 import com.otters.admissionsbackend.service.AuthenticationService;
 import com.otters.admissionsbackend.service.ProfileService;
 import com.otters.admissionsbackend.service.StudentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +15,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/student")
+@RequiredArgsConstructor
 public class StudentController {
     private final StudentService service;
-
-    public StudentController(StudentService service) {
-        this.service = service;
-    }
 
     @GetMapping("/all")
     public ResponseEntity<Page<Student>> findAll(

@@ -11,6 +11,7 @@ import com.otters.admissionsbackend.model.response.PaperResponse;
 import com.otters.admissionsbackend.repository.PaperRepository;
 import com.otters.admissionsbackend.repository.StudentRepository;
 import com.otters.admissionsbackend.repository.SubjectRepository;
+import com.otters.admissionsbackend.utils.ICheckCommand;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PaperService {
+public class PaperService implements ICheckCommand {
     private final PaperRepository repository;
     private final StudentRepository studentRepository;
     private final SubjectRepository subjectRepository;
@@ -77,8 +78,7 @@ public class PaperService {
     }
 
     public void delete(String id) throws ResponseStatusException {
-        Optional<Paper> paper = repository.findById(id);
-        if (paper.isEmpty()) {
+        if (checkExisted(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, new Error("Paper not existed").toString());
         }
         repository.deleteById(id);
@@ -101,5 +101,14 @@ public class PaperService {
 
     public List<StudentPaperScoreDTO> getTopStudentsByTotalPaperScore(int limit) {
         return repository.findTopStudentsByTotalPaperScore(limit);
+    }
+
+    @Override
+    public boolean checkExisted(String id) {
+        Optional<Paper> paper = repository.findById(id);
+        if (paper.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 }

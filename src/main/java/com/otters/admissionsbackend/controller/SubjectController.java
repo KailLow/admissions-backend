@@ -2,6 +2,7 @@ package com.otters.admissionsbackend.controller;
 
 import com.otters.admissionsbackend.model.Subject;
 import com.otters.admissionsbackend.service.SubjectService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +12,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/subject")
+@RequiredArgsConstructor
 public class SubjectController {
     private final SubjectService subjectService;
-
-    public SubjectController(SubjectService subjectService) {
-        this.subjectService = subjectService;
-    }
 
     @PostMapping("")
     public ResponseEntity<?> post(

@@ -2,6 +2,7 @@ package com.otters.admissionsbackend.repository;
 
 import com.otters.admissionsbackend.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 

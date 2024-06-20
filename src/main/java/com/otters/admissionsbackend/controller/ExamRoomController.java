@@ -1,8 +1,10 @@
 package com.otters.admissionsbackend.controller;
 
+import com.otters.admissionsbackend.dto.ExamRoomDTO;
 import com.otters.admissionsbackend.model.ExamRoom;
 import com.otters.admissionsbackend.model.request.ExamRoomRequest;
 import com.otters.admissionsbackend.service.ExamRoomService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/exam_room")
+@RequiredArgsConstructor
 public class ExamRoomController {
     private final ExamRoomService service;
 
-    public ExamRoomController(ExamRoomService service) {
-        this.service = service;
-    }
 
     @GetMapping("")
     public ResponseEntity<List<ExamRoom>> findAll() {
@@ -25,7 +25,7 @@ public class ExamRoomController {
 
     @PostMapping("")
     public ResponseEntity<?> add(
-            @RequestBody ExamRoomRequest request
+            @RequestBody ExamRoomDTO request
             ) {
         return ResponseEntity.ok(service.add(request));
     }
@@ -40,7 +40,7 @@ public class ExamRoomController {
     @PutMapping("/{id}")
     public ResponseEntity<?> update(
             @PathVariable String id,
-            @RequestBody ExamRoomRequest request
+            @RequestBody ExamRoomDTO request
     ) {
         return ResponseEntity.ok(service.update(id, request));
     }

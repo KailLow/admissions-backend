@@ -5,6 +5,7 @@ import com.otters.admissionsbackend.model.paper.Paper;
 import com.otters.admissionsbackend.model.request.PaperRequest;
 import com.otters.admissionsbackend.model.response.PaperResponse;
 import com.otters.admissionsbackend.service.PaperService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,12 +13,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/paper")
+@RequiredArgsConstructor
 public class PaperController {
     private final PaperService service;
-
-    public PaperController(PaperService service) {
-        this.service = service;
-    }
 
     @PostMapping("")
     public ResponseEntity<?> add(

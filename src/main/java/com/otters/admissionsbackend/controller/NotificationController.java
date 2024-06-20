@@ -2,18 +2,16 @@ package com.otters.admissionsbackend.controller;
 
 import com.otters.admissionsbackend.model.Notification;
 import com.otters.admissionsbackend.service.NotificationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class NotificationController {
     private final NotificationService service;
-
-    public NotificationController(NotificationService service) {
-        this.service = service;
-    }
 
     @GetMapping("/notification")
     public ResponseEntity<List<Notification>> findAll() {

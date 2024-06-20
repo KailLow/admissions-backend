@@ -3,6 +3,7 @@ package com.otters.admissionsbackend.controller;
 import com.otters.admissionsbackend.model.StRegistrationDetails;
 import com.otters.admissionsbackend.model.request.StRegistrationRequest;
 import com.otters.admissionsbackend.service.StRegistrationDetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,12 +11,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/stRegistrationDetails")
+@RequiredArgsConstructor
 public class StRegistrationDetailsController {
     private final StRegistrationDetailsService service;
-
-    public StRegistrationDetailsController(StRegistrationDetailsService service) {
-        this.service = service;
-    }
 
     @PostMapping("")
     public ResponseEntity<StRegistrationDetails> post(@RequestBody StRegistrationRequest details) {

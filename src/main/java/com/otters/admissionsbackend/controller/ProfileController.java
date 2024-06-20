@@ -2,6 +2,7 @@ package com.otters.admissionsbackend.controller;
 
 import com.otters.admissionsbackend.model.Profile;
 import com.otters.admissionsbackend.service.ProfileService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,13 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/profile")
+@RequiredArgsConstructor
 public class ProfileController {
 
     private final ProfileService profileService;
-
-    public ProfileController(ProfileService profileService) {
-        this.profileService = profileService;
-    }
 
     @PostMapping("")
     public ResponseEntity<Profile> postProfile(

@@ -2,6 +2,7 @@ package com.otters.admissionsbackend.service;
 
 import com.otters.admissionsbackend.model.TimeToChange;
 import com.otters.admissionsbackend.repository.TimeToChangeRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -9,16 +10,19 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TimeToChangeService {
     private final TimeToChangeRepository repository;
 
-    public TimeToChangeService(TimeToChangeRepository repository) {
-        this.repository = repository;
-    }
-
     public TimeToChange add(TimeToChange timeToChange) {
         TimeToChange time = new TimeToChange();
-        time = (TimeToChange) timeToChange.clone();
+        time.setAdmissionTime(time.getAdmissionTime());
+        time.setWishChangeTime(timeToChange.getWishChangeTime());
+        time.setRegistrationTime(time.getRegistrationTime());
+        time.setResultTime(time.getResultTime());
+        time.setFeePayTime(time.getFeePayTime());
+        time.setExam(timeToChange.getExam());
+        time.setPersonalInformationChangeTime(timeToChange.getPersonalInformationChangeTime());
         return repository.save(time);
     }
 

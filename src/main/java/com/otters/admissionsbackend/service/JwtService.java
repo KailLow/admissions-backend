@@ -1,11 +1,11 @@
 package com.otters.admissionsbackend.service;
 
 import com.otters.admissionsbackend.model.User;
-import com.otters.admissionsbackend.repository.TokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -25,12 +25,7 @@ public class JwtService {
     @Value("${jwt.REFRESH_EXPIRATION}")
     private long refreshExpiration;
 
-    private final TokenRepository tokenRepository;
-
-    public JwtService(TokenRepository tokenRepository) {
-        this.tokenRepository = tokenRepository;
-    }
-
+//    private final TokenRepository tokenRepository;
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -89,12 +84,6 @@ public class JwtService {
     public boolean isValidRefreshToken(String token, User user) {
         String username = extractUsername(token);
 
-        boolean validRefreshToken = tokenRepository
-                .findByRefreshToken(token)
-                .map(t -> !t.isLoggedOut())
-                .orElse(false);
-
-
-        return (username.equals(user.getUsername())) && !isTokenExpired(token) && validRefreshToken;
+        return (username.equals(user.getUsername())) && !isTokenExpired(token);
     }
 }

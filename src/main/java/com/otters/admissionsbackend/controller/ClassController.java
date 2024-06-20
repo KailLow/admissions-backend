@@ -1,7 +1,9 @@
 package com.otters.admissionsbackend.controller;
 
+import com.otters.admissionsbackend.dto.ClassDTO;
 import com.otters.admissionsbackend.model.MajorClass;
 import com.otters.admissionsbackend.service.ClassService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,16 +11,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/major_class")
+@RequiredArgsConstructor
 public class ClassController {
     private final ClassService classService;
 
-    public ClassController(ClassService classService) {
-        this.classService = classService;
-    }
-
     @PostMapping("")
     public ResponseEntity<MajorClass> add(
-            @RequestBody MajorClass majorClass
+            @RequestBody ClassDTO majorClass
     ) {
         return ResponseEntity.ok(classService.add(majorClass));
     }
@@ -40,7 +39,7 @@ public class ClassController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MajorClass> updateClass(@PathVariable String id, @RequestBody MajorClass majorClass) {
+    public ResponseEntity<MajorClass> updateClass(@PathVariable String id, @RequestBody ClassDTO majorClass) {
         return ResponseEntity.ok(classService.update(id, majorClass));
     }
 }
